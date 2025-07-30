@@ -7,8 +7,8 @@ public interface ISolution
 
 public class Sort : ISolution
 {
-	// sort array then iterate till the numbers are not sequential
-	// be careful about first and lst missing!
+	// slow sort array then iterate till the numbers are not sequential
+	// be careful about first and last missing!
 	public int FindMissingNumber(int[] input)
 	{
 		Array.Sort(input);
@@ -23,8 +23,8 @@ public class Sort : ISolution
 
 public class Bool : ISolution
 {
-	// create a bool array for every possible result, loop over to flag
-	// then loop over to find the missing one
+	// create a bool array for every possible result, loop over to flag every found number
+	// then loop over again to find the missing one
 	public int FindMissingNumber(int[] input)
 	{
 		bool[] foundArray = new bool[input.Length+1];
@@ -40,7 +40,7 @@ public class Bool : ISolution
 public class Sum : ISolution
 {
 	// if we add together every number from 0..n we can expect a specific result
-	// the difference to the actual sum is the number that's missing
+	// the difference to the sum of the input is the number that's missing
 	public int FindMissingNumber(int[] input)
 	{
 		long sum = 0;
@@ -61,7 +61,7 @@ public class SumFormula : ISolution
 	// in a secuence of 0..n (n+1 total sequence length) we can continuously take the first and last number and it will add up to n
 	// eg: 0+100, 1+99, 2+98 .. 99+1, 100+0
 	// note that the above has counted every element twice (0+100, 100+0), so we need to halve the result
-	
+
 	// so there are n+1 elements in the sequence, the sum of first and last is 0+n = n, and we need to halve the result
 	// n+1 * n / 2
 
@@ -78,7 +78,7 @@ public class SumFormula : ISolution
 
 public class Xor : ISolution
 {
-	// 100% google answer, i would not have derived this, nor would i use it in real work ;)
+	// 100% google answer, i would not have derived this, nor would I use it in real work ;)
 
 	// two equal numbers xor'd will cancel each other out a^a=0
 	// also xor is associative, (a^b)^c == a^(b^c)
@@ -120,12 +120,10 @@ class Application
 		for (int i = bigInput.Length - 1; i > 0; i--)
 		{
 			int j = random.Next(i + 1);
-			// Swap elements
 			int temp = bigInput[i];
 			bigInput[i] = bigInput[j];
 			bigInput[j] = temp;
 		}
-		
 		int removeIndex = random.Next(bigInput.Length);
 		int bigInputExpected = bigInput[removeIndex];
 		bigInput[removeIndex] = bigInput.Length;
